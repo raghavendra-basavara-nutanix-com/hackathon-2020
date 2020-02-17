@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="style2.css">
+  <title>LogWise</title>
+</head>
+
+    <style>
+      body {font-family: Arial;}
+
+      /* Style the tab */
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
+
+      /* Style the buttons inside the tab */
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+      }
+
+      /* Create an active/current tablink class */
+      .tab button.active {
+        background-color: #ccc;
+      }
+
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
+
+      /* Style the close button */
+      .topright {
+        float: right;
+        cursor: pointer;
+        font-size: 28px;
+      }
+
+      .tablinks {
+      display: tablinks;
+      width: 50%;
+      text-align: center;
+      font-weight:bold;
+      }
+
+      .topright:hover {color: red;}
+    </style>
+
+    <style>
+        .accordion {
+          background-color: #c4eeb6;
+          color: #444;
+          cursor: pointer;
+          padding: 18px;
+          width: 80%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+          font-weight: bold;
+          transition: 0.4s;
+        }
+
+        .active, .accordion:hover {
+          background-color: #ccc;
+        }
+
+        .accordion:after {
+          content: '\002B';
+          color: #777;
+          font-weight: bold;
+          float: right;
+          margin-left: 5px;
+        }
+
+        .active:after {
+          content: "\2212";
+        }
+
+        .panel {
+          padding: 0 18px;
+          background-color: white;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+        }
+    </style>
+
+    <body>
+      <div class="tab">
+        <button class="tablinks" onclick="openContent(event, 'NuTest Log')" id="defaultOpen">NuTest Log</button>
+        <button class="tablinks" onclick="openContent(event, 'TestStats')">TestStats</button>
+      </div>
+
+      <div id="NuTest Log" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+
+        <table text="black" bgcolor="eeeeee" >
+          <tbody>
+            <tr align="left">
+              <th><font size="+2">Test Values</font></th>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          <table cellpadding="3"  frame="border" width="80%" rules="all">
+            <tbody>
+              <tr align="center">
+                <th>Test Name</th>
+                <td>uvm.test_uvm_creation.UVMCreationTest.test_uvm_creation_test</td>
+              </tr>
+              <tr align="center">
+                <th>NuTest Commit ID</th>
+                <td>c45440f9086abda2e1ccc05e9d7139866e11b891</td>
+              </tr>
+              <tr align="center">
+                <th>NuTest Branch Used</th>
+                <td>master</td>
+              </tr>
+              <tr align="center">
+                <th>Total Time taken</th>
+                <td>In-Progress</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+
+          <table>
+            <tr></tr>
+          </table>
+
+        <table text="black" bgcolor="eeeeee" >
+          <tbody>
+            <tr align="left">
+              <th><font size="+2">Test Stages</font></th>
+            </tr>
+          </tbody>
+        </table>
+
+        <table><tr></tr></table>
+
+        <section>
+          <button class="accordion" onclick="UserAction('class_prerun')">Class Prerun</button>
+            <div class="panel">
+              <p id="class_prerun"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('class_setup')">Class Setup</button>
+            <div class="panel">
+              <p id="class_setup"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('test_prerun')">Test PreRun</button>
+            <div class="panel">
+              <p id="test_prerun"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('test_setup')">Test Setup</button>
+            <div class="panel">
+              <p id="test_setup"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('test_body')">Test Body</button>
+            <div class="panel">
+              <p id="test_body"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('test_teardown')">Test Teardown</button>
+            <div class="panel">
+              <p id="test_teardown"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('test_postrun')">Test Postrun</button>
+            <div class="panel">
+              <p id="test_postrun"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('class_teardown')">Class TearDown</button>
+            <div class="panel">
+              <p id="class_teardown"></p>
+            </div>
+
+          <button class="accordion" onclick="UserAction('class_postrun')">Class PostRun</button>
+            <div class="panel">
+              <p id="class_postrun"></p>
+            </div>
+
+        </section>
+      </div>
+
+      <div id="TestStats" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+        <p></p>
+
+
+        <style>
+            body {
+                font-family:  Trebuchet MS, verdana, Palatino,helvetica;
+                font-weight: 100;
+                font-size: 14px;
+            }
+
+
+            div {
+                color: black;
+                padding: 10px;
+                border-radius: 5px;
+            }
+
+            #header {
+              border: 1px solid #eee;
+              background-color: #eee;
+              color: black;
+              margin-bottom: 10px;
+            }
+
+            #header p {
+              font-size: 20px;
+              font-weight: 600;
+            }
+
+            #div_date {
+              padding: 10px;
+              margin-bottom: 10px;
+            }
+
+            #div_date span {
+              color: white;
+                background-color: #337ab7;
+                padding: 3px;
+                border-radius: 3px;
+                font-weight: 300;
+
+            }
+
+            #div_vm1 {
+                color: #337ab7;
+                background-color: #eee;
+                float: left;
+                width: 40%;
+                margin-right: 5%;
+                margin-left: 3%;
+                font-weight: 300;
+                font-size: 15px;
+                margin-top: 10px;
+                border: 1px solid #dedcdc;
+            }
+
+            #div_vm2 {
+              background: #5cb85c;
+              float: left;
+              width: 40%;
+              margin-top: 10px;
+              border: 1px solid #dedcdc;
+            }
+
+            #contact {
+              width: 100%;
+              position: fixed;
+              left: 0;
+              bottom: 0;
+              color: #5299cc;
+              text-align: center;
+              padding: 5px 0 20px;
+              padding-top: 20px;
+              background: #363636;
+              font-family: verdana;
+              border-radius: 0;
+              border: 0;
+            }
+
+            #contact span.title {
+                color: #cacaca;
+                padding-right: 20px;
+            }
+
+            #contact span.text {
+                color: #b3b2b2;
+            }
+
+            .vm_text {
+              font-weight: 600;
+            }
+            #contact a {
+                    color: indianred;
+            }
+
+
+            #div_vm1 p {
+              border-bottom: 1px solid #e2e0e0;
+                padding-bottom: 10px;
+            }
+            #div_vm1 h3 {
+              border-bottom: 1px solid #e2e0e0;
+                padding-bottom: 10px;
+            }
+
+            #div_vm2 p {
+              border-bottom: 1px solid #e2e0e0;
+                padding-bottom: 10px;
+            }
+
+            .accordion {
+              background-color: #c4eeb6;
+              color: #444;
+              cursor: pointer;
+              padding: 18px;
+              width: 80%;
+              border: none;
+              text-align: left;
+              outline: none;
+              font-size: 15px;
+              font-weight: bold;
+              transition: 0.4s;
+            }
+
+            .active, .accordion:hover {
+              background-color: #ccc;
+            }
+
+            .accordion:after {
+              content: '\002B';
+              color: #777;
+              font-weight: bold;
+              float: right;
+              margin-left: 5px;
+            }
+
+            .active:after {
+              content: "\2212";
+            }
+
+            .panel {
+              padding: 0 18px;
+              background-color: white;
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.2s ease-out;
+            }
+
+            #panel_3 {
+              padding: 0 18px;
+              background-color: white;
+              max-height: 0;
+              overflow: hidden;
+              transition: max-height 0.2s ease-out;
+            }
+
+        </style>
+          <div id="header">
+            <p>Test Stats</p>
+          </div>
+
+        <div id="div_vm1" class="vm">
+          <h3>Performance Optimisations</h3>
+          <p><span class="vm_title">Overall Sleep Time in test: </span> <span class="vm_text">5</span></p>
+          <p><button class="accordion">Sleep Time Details</button>
+            <p> 'seconds': 1,<br>
+                'line_no': 533,<br>
+                'file': u'framework/test_driver/nutest_scheduler.py'<br>
+            </p>
+            <p> 'seconds': 2,<br>
+                'line_no': 533, <br>
+                'file': u'framework/test_driver/nutest_scheduler.py'<br></p>
+            <p> 'seconds': 1,<br>
+                'line_no': 287,<br>
+                'file': u'framework/test_driver/nutest_scheduler.py'<br>
+            </p>
+
+          <p><span class="vm_title">Current test status : </span> <span class="vm_text">Succeeded</span></p>
+          <p><span class="vm_title">Overall test duration : </span> <span class="vm_text">522</span></p>
+          <p><span class="vm_title">Previous run status : </span> <span class="vm_text">Skipped</span></p>
+          <p><span class="vm_title">Previous run test duration : </span> <span class="vm_text">0</span></p>
+          <p><span class="vm_title">Average test duration : </span> <span class="vm_text">967.0</span></p>
+          <p><span class="vm_title">Deployment Time : </span> <span class="vm_text">{u'wait_time': 0, u'deploy_time': 0}</span></p>
+          <p><button class="accordion">Deployment Time</button>
+            <p>Deploy Time: 0</p>
+            <p>Wait Time: 0</p>
+          </p>
+
+        </div>
+        <div id="div_vm1" class="vm">
+          <h3>Test History</h3>
+          <p><span class="vm_title">Average pass rate of Test: </span> <span class="vm_text">17.6</span></p>
+          <p><span class="vm_title">Has it ever found an issue : </span> <span class="vm_text">0</span></p>
+          <p><span class="vm_title">When is test last modified : </span> <span class="vm_text">2017-09-06,00:00:00</span></p>
+          <p><span class="vm_title">Test was not modified since : </span> <span class="vm_text">889 days, 12:17:01.489051</span></p>
+          <p><button class="accordion">Runs on same commit</button>
+            <p> Number of Runs: 0 </p>
+            <p> Jita Links: [] </p>
+          </p>
+        </div>
+        <div id="div_vm1" class="vm">
+          <h3>Coverage Aspects</h3>
+          <p><button class="accordion">Rest and SSH calls</button>
+              <p> ' \'source /etc/profile; ncli cluster status <br></p>
+              <p> ' \'source /etc/profile; genesis restart <br></p>
+              <p> https://10.46.192.69:9440/PrismGateway/services/rest/v1/heartbeat <br></p>
+              <p> ' \'source /etc/profile; ncli vm ls <br></p>
+          </p>
+        </div>
+        <div id="div_vm1" class="vm">
+          <h3>Test Score</h3>
+          <p><button class="accordion">Test Score</button>
+          <div class="panel">
+            <p> TEST SCORE </p>
+          </div></p>
+        </div>
+
+
+      </div>
+
+      <script>
+        function openContent(evt, content_name) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(content_name).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+      </script>
+
+      <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+          });
+        }
+      </script>
+
+      <script>
+        function UserAction(table_name) {
+            var xhttp = new XMLHttpRequest();
+            var x = "";
+            xhttp.onreadystatechange = function() {
+                if (this.status == 200) {
+                    myArr = JSON.parse(this.responseText)
+                    for (i = 0; i < myArr.data.length; i++) {
+                         x += myArr.data[i].lines + "<br>";
+                     }
+                    document.getElementById(table_name).innerHTML = x
+                }
+            };
+            xhttp.open("GET", "http://127.0.0.1:2020/v1.0/tenant/" + table_name, true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+
+      </script>
+
+    </body>
+</html>

@@ -1,0 +1,105 @@
+swagger: "2.0"
+info:
+  title: "My API documentation"
+  version: "1.0"
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1.0
+schemes:
+ - http
+paths:
+  /tenant/list:
+    post:
+      tags:
+      - public
+      operationId: list_tenants
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: filterPayload
+        description: Inventory to add
+        schema:
+          $ref: '#/definitions/Filterlist'
+      responses:
+        201:
+          description: Successfully added tenant to the DB
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+  /tenant/{prod_id}/reservation:
+      get:
+        tags:
+        - public
+        operationId: get_tenant_reservations
+        parameters:
+          - in: path
+            name: prod_id
+            type: string
+            required: true
+            description: Numeric ID of the user to get.
+        responses:
+          '200':
+            description: 'Fetch a product from the database'
+  /tenant/{prod_id}:
+      get:
+        tags:
+        - public
+        operationId: get_tenant_line
+        parameters:
+          - in: path
+            name: prod_id
+            type: string
+            required: true
+            description: Numeric ID of the user to get.
+        responses:
+          '200':
+            description: 'Fetch a product from the database'
+  /tenant/{table}/{prod_id}:
+      get:
+        tags:
+        - public
+        operationId: get_tenant_line_id
+        parameters:
+          - in: path
+            name: table
+            type: string
+            required: true
+            description: Numeric ID of the user to get.
+          - in: path
+            name: prod_id
+            type: string
+            required: true
+            description: Numeric ID of the user to get.
+        responses:
+          '200':
+            description: 'Fetch a product from the database'
+# tags are used for organizing operations
+tags:
+- name: public
+  description: Operations available to all users
+- name: admins
+  description: Secured Admin-only calls
+definitions:
+  Product:
+    type: object
+    properties:
+      _id:  { type: string }
+      prodname: { type: string }
+      catagory: { type: string }
+      quantity:
+        type: number
+  Filterlist:
+    type: object
+    properties:
+      selector:
+        type: object
+        additionalProperties: true
+      fields:
+        type: array
+        items:
+          type: string

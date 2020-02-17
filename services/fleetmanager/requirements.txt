@@ -1,0 +1,7 @@
+Flask
+connexion[swagger-ui]
+Flask-Injector
+fastavro
+injector==0.12.0
+couchdb
+flask_cors
